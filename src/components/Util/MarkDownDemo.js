@@ -13,7 +13,7 @@ const MarkDownDemo = () => (
   <div>
     <h1>test</h1>
     <MarkDownContainer>
-      <MarkDown file={TestFile}></MarkDown>
+      <MarkDown filename={"test"}></MarkDown>
     </MarkDownContainer>
   </div>
 );

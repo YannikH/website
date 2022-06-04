@@ -1,0 +1,10 @@
+{
+  "pages": [
+    {
+      "id": "art123",
+      "title": "My Test Page",
+      "preview": "Lorem ipsum I literally do not know how this continues, but find out more about this article by clicking this preview!",
+      "file": "test"
+    }
+  ]
+}

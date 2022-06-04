@@ -1,6 +1,19 @@
-import { Alert, Box } from '@mui/material';
+import { Alert, Box, LinearProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'
+
+const LoadingError = () => (
+  <Box mt={3} sx={{ display: 'flex' }}>
+    <Alert severity="error">Somethign went wrong loading the page contents!</Alert>
+  </Box>
+)
+
+const LoadingProgress = () => (
+  <Box mt={3}>
+    <LinearProgress color="secondary" />
+  </Box>
+);
 
 const MarkDown = ({filename}) => {
   const [markdownText, setMarkdownText] = useState();
@@ -11,13 +24,10 @@ const MarkDown = ({filename}) => {
       .then(text => setMarkdownText(text))
   });
 
-  if (!filename) return <></>
-  if (markdownText && markdownText.includes("<!DOCTYPE html>")) return (
-    <Box mt={3}>
-      <Alert severity="error">Somethign went wrong loading the page contents!</Alert>
-    </Box>
-  )
-  return (<ReactMarkdown>{markdownText}</ReactMarkdown>);
+  if (!filename) return <LoadingError></LoadingError>
+  if (!markdownText) return <LoadingProgress></LoadingProgress>
+  if (markdownText && markdownText.includes("<!DOCTYPE html>")) return <LoadingError></LoadingError>
+  return (<ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText}</ReactMarkdown>);
 };
 
 export default MarkDown;

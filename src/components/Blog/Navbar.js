@@ -1,8 +1,6 @@
 import { AppBar, CssBaseline, Toolbar, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import content from './content.json'
 
 const StyledLink = styled(Link)`
   text-decoration: none;

@@ -1,4 +1,3 @@
-import TestFile from './test.md'
 import MarkDown from './MarkDown';
 import styled from 'styled-components';
 

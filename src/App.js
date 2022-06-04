@@ -3,6 +3,7 @@ import './App.css';
 import WorkInProgress from './components/WorkInProgress/WorkInProgress'
 import Blog from './components/Blog/Blog'
 import Article from './components/Blog/Article'
+import NotFound from './components/Blog/NotFound'
 import MarkDownDemo from './components/Util/MarkDownDemo'
 import {
   BrowserRouter as Router,
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<WorkInProgress/>}></Route>
           <Route path="/blog" element={<Blog/>}></Route>
+          <Route path="/blog/404" element={<NotFound/>}></Route>
           <Route path="/blog/:articleId" element={<Article/>}></Route>
           <Route path="/markdown" element={<MarkDownDemo/>}></Route>
         </Routes>

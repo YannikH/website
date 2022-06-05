@@ -58,21 +58,25 @@ const MediaItem = ({icon, name, link}) => {
   </li>
 )}
 
-const WorkInProgress = () => (
-  <div className={styles.WorkInProgress}>
-    <WipContainer>
-      <WipCard>
-        <WipTitle>Work In Progress</WipTitle>
-        Thank you for visiting my website, unfortunately I'm currently renovating it.
-        <IconWrapper>
-          <FontAwesomeIcon icon="fa-solid fa-person-digging" />
-        </IconWrapper>
-      </WipCard>
-        <MediaList>
-          <MediaItem icon={"fa-brands fa-linkedin"} name={"Yannik Hegge"} link={"https://www.linkedin.com/in/yannik-hegge-85516b92/"}></MediaItem>
-          <MediaItem icon={"fa-brands fa-github"} name={"YannikH"} link={"https://github.com/YannikH"}></MediaItem>
-        </MediaList>
-    </WipContainer>
-  </div>
-);
+const WorkInProgress = () => {
+  document.title = "Work In Progress"
+  return (
+    <div className={styles.WorkInProgress}>
+      <WipContainer>
+        <WipCard>
+          <WipTitle>Work In Progress</WipTitle>
+          Thank you for visiting my website, unfortunately I'm currently renovating it.
+          <IconWrapper>
+            <FontAwesomeIcon icon="fa-solid fa-person-digging" />
+          </IconWrapper>
+        </WipCard>
+          <MediaList>
+            <MediaItem icon={"fa-brands fa-linkedin"} name={"Yannik Hegge"} link={"https://www.linkedin.com/in/yannik-hegge-85516b92/"}></MediaItem>
+            <MediaItem icon={"fa-brands fa-github"} name={"YannikH"} link={"https://github.com/YannikH"}></MediaItem>
+          </MediaList>
+      </WipContainer>
+    </div>
+  );
+};
+
 export default WorkInProgress;

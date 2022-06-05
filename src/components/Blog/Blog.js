@@ -18,6 +18,7 @@ const PreviewCard = ({title, preview, id}) => (
 
 const Blog = () => {
   const articlePreviewList = content.pages.map(art => <><PreviewCard {...art}></PreviewCard></>)
+  document.title = "Laser Guided Bullshit"
   return (
     <BlogPage>
       { articlePreviewList }

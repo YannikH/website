@@ -12,6 +12,7 @@ import {
   Link
 } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Editor from './components/Blog/Editor';
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/blog" element={<Blog/>}></Route>
           <Route path="/blog/404" element={<NotFound/>}></Route>
           <Route path="/blog/:articleId" element={<Article/>}></Route>
+          <Route path="/blog/Editor" element={<Editor/>}></Route>
           <Route path="/markdown" element={<MarkDownDemo/>}></Route>
         </Routes>
       </Router>

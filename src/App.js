@@ -37,7 +37,11 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<WorkInProgress/>}></Route>
+          {window.location.host.split('.')[0] === 'app' ?
+            <Route path="/" element={<MobileApp/>}></Route>
+            :
+            <Route path="/" element={<WorkInProgress/>}></Route>
+          }
           <Route path="/blog" element={<Blog/>}></Route>
           <Route path="/blog/404" element={<NotFound/>}></Route>
           <Route path="/blog/:articleId" element={<Article/>}></Route>

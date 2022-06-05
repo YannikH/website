@@ -7,26 +7,30 @@ import { Box, Button, ButtonGroup, Card, CardContent, Container, TextField, Typo
 import ReactMarkdown from 'react-markdown';
 import Navbar from "./Navbar";
 import { DriveFileRenameOutline, Visibility } from "@mui/icons-material";
+import ls from "local-storage";
 
 const Editor = () => {
-  const [articleContents, setArticleContents] = useState("");
+  const storedText = ls("text");
+  const defaultState = (storedText) ? storedText: "";
+  const [articleContents, setArticleContents] = useState(defaultState);
   const [editing, setEditing] = useState(true);
   return (
     <div>
-      <Navbar />
-      <Box m={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h4">Markdown Editor</Typography>
+      <Navbar title={"Markdown Editor"}>
         <ButtonGroup variant="contained" aria-label="outlined primary button group">
           <Button onClick={() => setEditing(true)}><DriveFileRenameOutline/></Button>
           <Button onClick={() => setEditing(false)}><Visibility/></Button>
         </ButtonGroup>
-      </Box>
+      </Navbar>
       <Box sx={{ display: 'flex' }} mt={2}>
         { editing ? 
           <Container>
             <TextField
               multiline
-              onChange={event => setArticleContents(event.target.value)}
+              onChange={event => {
+                ls("text", event.target.value)
+                setArticleContents(event.target.value)
+              }}
               minRows={50}
               fullWidth
               value={articleContents}

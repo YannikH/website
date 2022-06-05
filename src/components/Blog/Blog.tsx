@@ -1,13 +1,14 @@
 import { Box, Card, CardContent, createTheme, ThemeProvider, Typography } from '@mui/material';
 import BlankLink from '../Util/BlankLink';
-import content from './content.json'
 import BlogPage from './BlogPage';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
 import Article from './Article';
 import Editor from './Editor';
+import React from 'react';
+import content from './content.json'
 
-const PreviewCard = ({title, preview, id}) => (
+const PreviewCard = ({title, preview, id}: {title: string; preview: string; id: string;}) => (
   <BlankLink to={`/blog/${id}`}>
     <Box pb={2}>
       <Card variant="outlined">
@@ -21,7 +22,7 @@ const PreviewCard = ({title, preview, id}) => (
 )
 
 const BlogHome = () => {
-  const articlePreviewList = content.pages.map(art => <><PreviewCard {...art}></PreviewCard></>)
+  const articlePreviewList = content.pages.map((art: any) => <><PreviewCard {...art}></PreviewCard></>)
   document.title = "Laser Guided Bullshit"
   return (
     <BlogPage>

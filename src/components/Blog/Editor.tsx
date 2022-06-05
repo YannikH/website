@@ -1,17 +1,17 @@
 import { Navigate, useParams } from "react-router-dom";
 import BlogPage from "./BlogPage";
-import content from './content.json'
 import MarkDown from "../Util/MarkDown";
 import { useState } from "react";
 import { Box, Button, ButtonGroup, Card, CardContent, Container, TextField, Typography } from "@mui/material";
 import ReactMarkdown from 'react-markdown';
 import Navbar from "./Navbar";
 import { DriveFileRenameOutline, Visibility } from "@mui/icons-material";
-import ls from "local-storage";
+import { get, set } from "local-storage";
+import React from "react";
 
 const Editor = () => {
-  const storedText = ls("text");
-  const defaultState = (storedText) ? storedText: "";
+  const storedText = get<string>("text");
+  const defaultState = (storedText !== "") ? storedText: "";
   const [articleContents, setArticleContents] = useState(defaultState);
   const [editing, setEditing] = useState(true);
   return (
@@ -28,7 +28,7 @@ const Editor = () => {
             <TextField
               multiline
               onChange={event => {
-                ls("text", event.target.value)
+                set("text", event.target.value)
                 setArticleContents(event.target.value)
               }}
               minRows={50}

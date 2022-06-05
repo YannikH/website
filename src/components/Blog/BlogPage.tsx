@@ -1,7 +1,8 @@
 import { Box, Container, Typography } from "@mui/material";
+import React from "react";
 import Navbar from "./Navbar";
 
-const BlogPage = ({children}) => (
+const BlogPage = ({children}: {children: React.ReactNode}) => (
     <div>
       <Navbar />
       <Container>

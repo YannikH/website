@@ -1,4 +1,5 @@
 import { AppBar, Box, CssBaseline, Toolbar, Typography } from "@mui/material";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,7 +10,7 @@ const StyledLink = styled(Link)`
   margin-left: 20px;
 `;
 
-const NavbarLink = ({name, url}) => (
+const NavbarLink = ({name, url}: {name: string; url: string;}) => (
     <StyledLink to={url}>
       {name}
     </StyledLink>
@@ -19,7 +20,7 @@ const LinkContainer = styled.div`
 margin-left: 50px;
 `;
 
-const Navbar = ({title = "Laser Guided Bullshit", children}) => (
+const Navbar = ({title = "Laser Guided Bullshit", children = <></>}) => (
   <AppBar position="static">
     <CssBaseline />
     <Toolbar>

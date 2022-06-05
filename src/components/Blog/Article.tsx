@@ -1,7 +1,8 @@
 import { Navigate, useParams } from "react-router-dom";
 import BlogPage from "./BlogPage";
-import content from './content.json'
 import MarkDown from "../Util/MarkDown";
+import React from "react";
+import content from "./content.json";
 
 const Article = ({}) => {
   const { articleId } = useParams();

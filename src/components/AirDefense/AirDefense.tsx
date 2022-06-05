@@ -1,16 +1,13 @@
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import { DeviceFrameset, DeviceSelector } from "react-device-frameset";
+import React from "react";
+import { DeviceEmulator, DeviceFrameset, DeviceSelector } from "react-device-frameset";
 import { Route, Routes } from "react-router-dom";
 import Quiz from "./Quiz";
 
 const QuizWrapped = () => (
-  <DeviceSelector>
-  { props => 
-    <DeviceFrameset {...props}>
-      <Quiz/>
-    </DeviceFrameset>
-  }
-</DeviceSelector>
+  <DeviceFrameset device="Nexus 5">
+    <Quiz/>
+  </DeviceFrameset>
 );
 
 const AirDefense = () => {

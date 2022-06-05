@@ -1,7 +1,8 @@
 import { AppBar, Box, Button, Card, CardContent, CardMedia, TextField, Toolbar, Typography } from "@mui/material";
-import systemsFile from "./systems.json";
+import React from "react";
+import { SAM, SamSystems } from "./SamSystems";
 
-const QuizCard = ({name, alternatives, image}) => {
+const QuizCard = (system: SAM) => {
   const question = (
       <>
         <Typography variant="h6">What is the NATO designation for this SAM system?</Typography>
@@ -17,7 +18,7 @@ const QuizCard = ({name, alternatives, image}) => {
       <Card>
         <CardMedia
           component="img"
-          image={image}
+          image={system.image}
         />
         <CardContent>
           {question}
@@ -27,17 +28,17 @@ const QuizCard = ({name, alternatives, image}) => {
   );
 };
 
-const Quiz = () => (
+const Quiz: React.FC = () => (
   <Box style={{ height: "100%" }}>
     <AppBar position="static">
-      <Toolbar variant="desnse">
+      <Toolbar variant="dense">
         <Typography variant="h6" color="inherit" component="div">
           Air Defense Recognition
         </Typography>
       </Toolbar>
     </AppBar>
     <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'space-around', height: '100%' }}>
-      <QuizCard {...(systemsFile.systems[0])}></QuizCard>
+      <QuizCard {...(SamSystems[0])}></QuizCard>
     </Box>
   </Box>
 );

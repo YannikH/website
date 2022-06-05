@@ -6,6 +6,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Box, createTheme, ThemeProvider } from '@mui/material';
 import { RecentActors } from '@mui/icons-material';
 import { useState } from 'react';
+import React from 'react';
 
 const Home = () => (
   <h1>Hello World!</h1>
@@ -25,26 +26,18 @@ const MobileAppRouting = () => (
 
 const theme = createTheme({});
 
-const MobileAppWrapper = ({children}) => (
+const MobileAppWrapper = ({children}: {children: React.ReactNode}) => (
   <ThemeProvider theme={theme}>
     <MobileView>
       {children}
     </MobileView>
     <BrowserView>
-      <DeviceSelector>
-          { props => 
-            <DeviceFrameset {...props}>
-              {children}
-            </DeviceFrameset>
-          }
-      </DeviceSelector>
+      <DeviceFrameset device="iPhone 8" color="gold" landscape>
+        {children}
+      </DeviceFrameset>
     </BrowserView>
   </ThemeProvider>
 );
-
-const MobileLink = ({to}) => (
-  <Link to={`/mobile/${to}`}></Link>
-)
 
 const MobileApp = () => {
   const [bottomNavigationValue, setBottomNavigationValue] = useState("");

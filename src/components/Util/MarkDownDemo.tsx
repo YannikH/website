@@ -1,5 +1,6 @@
 import MarkDown from './MarkDown';
 import styled from 'styled-components';
+import React from 'react';
 
 const MarkDownContainer = styled.div`
   width:600px;

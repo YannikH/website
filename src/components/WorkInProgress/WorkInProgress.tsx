@@ -1,10 +1,9 @@
-import React from 'react';
-import styles from './WorkInProgress.module.css';
+import React from 'react'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonDigging } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
 
 library.add(faPersonDigging, faLinkedin, faGithub)
 
@@ -49,7 +48,7 @@ const UnstyledLink = styled.a`
   color: #3737ab;
 `;
 
-const MediaItem = ({icon, name, link}) => {
+const MediaItem = ({icon, name, link}: {icon: IconProp; name: string, link: string}) => {
   return (
   <li>
     <UnstyledLink href={link}>
@@ -61,18 +60,18 @@ const MediaItem = ({icon, name, link}) => {
 const WorkInProgress = () => {
   document.title = "Work In Progress"
   return (
-    <div className={styles.WorkInProgress}>
+    <div>
       <WipContainer>
         <WipCard>
           <WipTitle>Work In Progress</WipTitle>
           Thank you for visiting my website, unfortunately I'm currently renovating it.
           <IconWrapper>
-            <FontAwesomeIcon icon="fa-solid fa-person-digging" />
+            <FontAwesomeIcon icon={faPersonDigging} />
           </IconWrapper>
         </WipCard>
           <MediaList>
-            <MediaItem icon={"fa-brands fa-linkedin"} name={"Yannik Hegge"} link={"https://www.linkedin.com/in/yannik-hegge-85516b92/"}></MediaItem>
-            <MediaItem icon={"fa-brands fa-github"} name={"YannikH"} link={"https://github.com/YannikH"}></MediaItem>
+            <MediaItem icon={faLinkedin} name={"Yannik Hegge"} link={"https://www.linkedin.com/in/yannik-hegge-85516b92/"}></MediaItem>
+            <MediaItem icon={faGithub} name={"YannikH"} link={"https://github.com/YannikH"}></MediaItem>
           </MediaList>
       </WipContainer>
     </div>

@@ -1,4 +1,5 @@
 import { Alert, Box, LinearProgress } from '@mui/material';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
@@ -15,8 +16,8 @@ const LoadingProgress = () => (
   </Box>
 );
 
-const MarkDown = ({filename}) => {
-  const [markdownText, setMarkdownText] = useState();
+const MarkDown = ({filename}: {filename: string}) => {
+  const [markdownText, setMarkdownText] = useState("");
   useEffect(() => {
     const file = new Request(`/markdown/${filename}.md`)
     fetch(file)

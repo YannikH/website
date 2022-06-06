@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MultipleChoiceQuestion, Question } from "./Quiz";
 import { QuizCard, QuizCardContainer, QuizCardWrapper } from "./QuizCard";
 import confetti from 'canvas-confetti'
@@ -161,8 +161,18 @@ const getAllOptions = () => {
   return allOptions;
 }
 
-export const SamQuiz = () => {
+const prepareQuizQuestions = () => {
   const allOptions = getAllOptions();
+  const questionsList: Array<{system: SAM, question: MultipleChoiceQuestion}> = [];
+  SamSystems.forEach(sam => {
+    questionMap.forEach(({field, questionText, generator}) => {
+      questionsList.push({system: sam, question: generator(sam, field as keyof SAM, questionText, allOptions)})
+    })
+  });
+  return questionsList.sort(() => 0.5 - Math.random());
+};
+
+export const SamQuiz = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   
   const myConfetti = createConfetti();
@@ -174,15 +184,11 @@ export const SamQuiz = () => {
     }
   };
 
-  const questionsList: Array<{system: SAM, question: MultipleChoiceQuestion}> = [];
-  SamSystems.forEach(sam => {
-    questionMap.forEach(({field, questionText, generator}) => {
-      questionsList.push({system: sam, question: generator(sam, field as keyof SAM, questionText, allOptions)})
-    })
-  });
-  const shuffled = questionsList.sort(() => 0.5 - Math.random());
-
-  const allQuestionCards = shuffled.map(({system, question}, index) => 
+  let questionsList: Array<{system: SAM, question: MultipleChoiceQuestion}> = useMemo(() => {
+    console.log("preparing questions")
+    return prepareQuizQuestions();
+  }, [])
+  const allQuestionCards = questionsList.map(({system, question}, index) => 
     <Slide in={questionIndex === index} key={index} direction="left">
       <QuizCardWrapper>
         <QuizCard question={question} system={system} answerCallback={answerCallback}/>

@@ -34,6 +34,7 @@ const QuizTest = () => (
 );
 
 const AirDefense = () => {
+  document.title = "Air Defense Quizzes"
   return (
     <Routes>
       <Route path="/" element={<MobileWrapped/>}></Route>

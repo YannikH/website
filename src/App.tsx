@@ -9,6 +9,7 @@ import {
   Route,
 } from "react-router-dom";
 import React from 'react'
+import Helmet from 'react-helmet';
 
 
 function App() {
@@ -18,14 +19,19 @@ function App() {
     case "quiz": HomeComponent = AirDefense; break;
   }
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomeComponent/>}></Route>
-        {/* <Route path="/blog/*" element={<Blog/>}></Route> */}
-        <Route path="/mobile/*" element={<MobileApp/>}></Route>
-        <Route path="/airdefense/*" element={<AirDefense/>}></Route>
-      </Routes>
-    </Router>
+    <>
+      <Helmet>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </Helmet>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomeComponent/>}></Route>
+          {/* <Route path="/blog/*" element={<Blog/>}></Route> */}
+          <Route path="/mobile/*" element={<MobileApp/>}></Route>
+          <Route path="/airdefense/*" element={<AirDefense/>}></Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 

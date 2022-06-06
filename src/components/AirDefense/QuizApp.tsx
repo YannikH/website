@@ -1,5 +1,5 @@
 import { AppBar, BottomNavigation, BottomNavigationAction, Box, Button, ButtonGroup, Card, CardContent, CardMedia, TextField, Toolbar, Typography } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import { Quiz } from "./Quiz";
 import { useState } from "react";
 import styled from "styled-components";
@@ -54,6 +54,7 @@ const QuizApp: React.FC = () => {
     setSelectedQuiz(quiz)
     setBottomNavigationValue(1)
   };
+  const scrollableRef = useRef<HTMLElement>(null)
   return (
     <Box style={{ height: "100%", position: 'relative', display: 'flex', flexDirection: 'column' }}>
       <ConfettiCanvas id={'confettiCanvas'}/>
@@ -64,9 +65,9 @@ const QuizApp: React.FC = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ flexGrow: '1', display: 'flex', flexDirection: "column", justifyContent: 'space-around', overflow: 'scroll', overflowX: 'hidden'}}>
+      <Box ref={scrollableRef} sx={{ flexGrow: '1', display: 'flex', flexDirection: "column", justifyContent: 'space-around', overflow: 'scroll', overflowX: 'hidden'}}>
         { (selectedQuiz && bottomNavigationValue > 0) ? 
-          <Quiz quizConfiguration={selectedQuiz} newQuiz={newQuiz} setNewQuiz={setNewQuiz} /> :
+          <Quiz quizConfiguration={selectedQuiz} newQuiz={newQuiz} setNewQuiz={setNewQuiz} scrollableRef={scrollableRef} /> :
           <QuizSelector {...{availableQuizzes, openQuiz}}/>
         }
       </Box>

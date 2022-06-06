@@ -75,9 +75,14 @@ const ProgressDisplay = ({index, total, correct}: {index: number, total: number,
   </Box>
 );
 
-type QuizProps = {quizConfiguration: QuizConfiguration, newQuiz: boolean, setNewQuiz: React.Dispatch<boolean>};
+type QuizProps = {
+  quizConfiguration: QuizConfiguration;
+  newQuiz: boolean;
+  setNewQuiz: React.Dispatch<boolean>
+  scrollableRef: React.MutableRefObject<HTMLElement | null>
+};
 
-export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: QuizProps) => {
+export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz, scrollableRef}: QuizProps) => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questionsList, setQuestionsList] = useState<QuestionsList>([])
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -88,10 +93,12 @@ export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: QuizProps) => {
       setQuestionIndex(questionIndex + 1);
       saveQuizInstance(questionIndex, questionsList, correctAnswers)
       saveQuizInstance(questionIndex, questionsList, correctAnswers)
+      if (scrollableRef.current) scrollableRef.current.scrollTop = 0;
     } else if (result) {
       myConfetti()
       setCorrectAnswers(correctAnswers + 1)
       saveQuizInstance(questionIndex + 1, questionsList, correctAnswers + 1)
+      if (scrollableRef.current) scrollableRef.current.scrollTop = 99999;
     } else {
       saveQuizInstance(questionIndex + 1, questionsList, correctAnswers)
     }
@@ -108,7 +115,7 @@ export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: QuizProps) => {
   }, [newQuiz])
   const allQuestionCards = questionsList.map(({system, question}, index) => 
     <Slide in={questionIndex === index} key={index} direction="left">
-      <QuizCardWrapper>
+      <QuizCardWrapper style={{ display: (questionIndex === index) ? 'initial' : 'none' }}>
         <ProgressDisplay {...{index: questionIndex, total: questionsList.length, correct: correctAnswers}} />
         <QuizCard question={question} system={system} answerCallback={answerCallback}/>
       </QuizCardWrapper>

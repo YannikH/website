@@ -87,6 +87,7 @@ export const QuizCard: React.FC<QuizCardProps> = ({system, question, answerCallb
         <CardMedia
           component="img"
           image={system.image}
+          style={{height: '30%', width: '100%'}}
         />
         <CardContent>
           <QuestionDisplay {...{question, answered, answerCallback, setAnswered}} />

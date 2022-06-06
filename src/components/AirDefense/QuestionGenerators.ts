@@ -8,7 +8,8 @@ export const createMultipleChoice: QuestionGenerator = (system: System, field: k
   const answer = system[field];
   const possibleAnswersSliced = possibleAnswers.filter((val => val !== answer));
   const answers = [answer].concat(possibleAnswersSliced)
-  const shuffledAnswers = answers.sort(() => 0.5 - Math.random());
+  const answersReduced = (answers).slice(0, Math.min(5, possibleAnswersSliced.length));
+  const shuffledAnswers = answersReduced.sort(() => 0.5 - Math.random());
   return {
     type: "multipleChoice",
     question: questionText,
@@ -24,6 +25,6 @@ export const createBoolean: QuestionGenerator = (system: System, field: keyof Sy
     question: questionText,
     options: ["Yes", "No"],
     // answerFn: (answer: string, question: Question) => answer === (system[field] ? "Yes" : "No")
-    answer: system[field]
+    answer: system[field] ? "Yes": "No"
   }
 };

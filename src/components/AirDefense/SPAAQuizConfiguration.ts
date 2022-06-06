@@ -8,6 +8,9 @@ export type SPAA = BaseSystemProps & {
 };
 
 export const spaaQuizConfiguration: QuizConfiguration = {
+  title: "Self Propelled AAA",
+  description: "Gun based self propelled AAA systems",
+  image: "https://upload.wikimedia.org/wikipedia/commons/0/05/ZSU-57-2_Hun_2010_02.jpg",
   questions: [
     {
       field: "name",

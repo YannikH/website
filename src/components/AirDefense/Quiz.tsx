@@ -4,6 +4,7 @@ import { QuizCard, QuizCardContainer, QuizCardWrapper } from "./QuizCard";
 import confetti from 'canvas-confetti'
 import { Slide } from "@mui/material";
 import { AllAnswerOptions, AllAnswerOptions as AllFieldOptions, Guidance, QuizConfiguration, System } from "./types";
+import { get, set } from "local-storage";
 
 const createConfetti = () => {
   const myCanvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
@@ -40,8 +41,27 @@ const prepareQuizQuestions = (quizConfiguration: QuizConfiguration) => {
   return questionsList.sort(() => 0.5 - Math.random());
 };
 
-export const Quiz = ({quizConfiguration}: {quizConfiguration: QuizConfiguration}) => {
+type QuestionsList = Array<{system: System, question: Question}>;
+type QuizInstance = {questionIndex: number, questionsList: QuestionsList}
+
+const saveQuizInstance = (questionIndex: number, questionsList: QuestionsList) => {
+  set("currentQuiz", {questionIndex, questionsList})
+};
+
+const getQuizInstance = (newQuiz: boolean, quizConfiguration: QuizConfiguration): QuizInstance => {
+  if (newQuiz) {
+    const questionsList: QuestionsList = prepareQuizQuestions(quizConfiguration)
+    const instance = {questionsList: questionsList, questionIndex: 0}
+    saveQuizInstance(0, questionsList)
+    return instance
+  };
+  const quizState = get("currentQuiz") as QuizInstance;
+  return {questionsList: quizState.questionsList, questionIndex: quizState.questionIndex};
+};
+
+export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: {quizConfiguration: QuizConfiguration, newQuiz: boolean, setNewQuiz: React.Dispatch<boolean>}) => {
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [questionsList, setQuestionsList] = useState<QuestionsList>([])
   
   const myConfetti = createConfetti();
   const answerCallback = (result: boolean, action = "answer") => {
@@ -50,12 +70,17 @@ export const Quiz = ({quizConfiguration}: {quizConfiguration: QuizConfiguration}
     } else if (result) {
       myConfetti()
     }
+    saveQuizInstance(questionIndex, questionsList)
   };
 
-  let questionsList: Array<{system: System, question: Question}> = useMemo(() => {
-    console.log("preparing questions")
-    return prepareQuizQuestions(quizConfiguration);
-  }, [])
+  useEffect(() => {
+    const instance = getQuizInstance(newQuiz, quizConfiguration)
+    console.log(instance, newQuiz)
+    setNewQuiz(false)
+    setQuestionIndex(instance.questionIndex)
+    setQuestionsList(instance.questionsList)
+  }, [newQuiz])
+  console.log(questionIndex, questionsList)
   const allQuestionCards = questionsList.map(({system, question}, index) => 
     <Slide in={questionIndex === index} key={index} direction="left">
       <QuizCardWrapper>

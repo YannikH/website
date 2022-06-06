@@ -19,6 +19,9 @@ export interface QuestionConfiguration {
   generator: QuestionGenerator
 };
 export type QuizConfiguration = {
+  title: string,
+  description: string,
+  image: string,
   questions: Array<QuestionConfiguration>
   systems: Array<System>
 }

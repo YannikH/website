@@ -39,6 +39,9 @@ return {
 }
 
 export const samQuizConfiguration: QuizConfiguration = {
+  title: "SAM Systems",
+  description: "Static and mobile SAM systems",
+  image: "https://upload.wikimedia.org/wikipedia/commons/b/b9/03_SA-2_Guideline.jpg",
   questions: [
     {
       field: "natoNum",

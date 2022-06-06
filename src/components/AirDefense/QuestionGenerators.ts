@@ -1,5 +1,5 @@
 import { MultipleChoiceQuestion, Question } from "./QuizApp";
-import { AllAnswerOptions, System } from "./types";
+import { AllAnswerOptions, System } from  "./types";
 
 export type QuestionGenerator = (system: System, field: keyof System, questionText: string, option: AllAnswerOptions<System>) => Question;
 
@@ -13,7 +13,8 @@ export const createMultipleChoice: QuestionGenerator = (system: System, field: k
     type: "multipleChoice",
     question: questionText,
     options: shuffledAnswers,
-    answerFn: (answer: string, question: Question) => answer === system[field]
+    //answerFn: (answer: string, question: Question) => answer === system[field]
+    answer: system[field]
   }
 };
 
@@ -22,6 +23,7 @@ export const createBoolean: QuestionGenerator = (system: System, field: keyof Sy
     type: "multipleChoice",
     question: questionText,
     options: ["Yes", "No"],
-    answerFn: (answer: string, question: Question) => answer === (system[field] ? "Yes" : "No")
+    // answerFn: (answer: string, question: Question) => answer === (system[field] ? "Yes" : "No")
+    answer: system[field]
   }
 };

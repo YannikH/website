@@ -32,8 +32,8 @@ const MobileAppWrapper = ({children}: {children: React.ReactNode}) => (
       {children}
     </MobileView>
     <BrowserView>
-      <DeviceFrameset device="iPhone 8" color="gold" landscape>
-        {children}
+        <DeviceFrameset device="iPhone 8" color="gold" landscape>
+          {children}
       </DeviceFrameset>
     </BrowserView>
   </ThemeProvider>

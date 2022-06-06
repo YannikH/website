@@ -6,7 +6,7 @@ import QuizApp from "./QuizApp";
 
 const QuizTest = () => (
   <>
-    <DeviceFrameset device="Nexus 5">
+    <DeviceFrameset device="iPhone X">
       <QuizApp/>
     </DeviceFrameset>
   </>

@@ -14,7 +14,7 @@ const NumberQuestionDisplay = ({question, answerCallback, answered, setAnswered}
       <Typography variant="h6">{question.question}</Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
         <Box m={1}><TextField type="number" onChange={event => setNumber(event.target.value)} size="small" style={{width: "100px"}}/></Box>
-        <Box m={1}><Button style={{ height: "40px" }} variant="contained" onClick={() => answerCallback(question.answerFn(number.toString(), question))}>Submit</Button></Box>
+        <Box m={1}><Button style={{ height: "40px" }} variant="contained" onClick={() => answerCallback(question.answer === number.toString())}>Submit</Button></Box>
       </Box>
     </>
   );
@@ -27,11 +27,11 @@ const AnswerButton = ({option, question, answerCallback, answered, setAnswered, 
     return (<Button onClick={() => {
         setAnswered(true)
         setChosenAnswer(option)
-        answerCallback(question.answerFn(option, question))
+        answerCallback(question.answer === option)
       }
     }>{option}</Button>);
   } else {
-    const isCorrect = question.answerFn(option, question);
+    const isCorrect = question.answer === option;
     const isChosen = (chosenAnswer === option);
     let buttonColor: "warning" | "error" | "success" = (isChosen) ? "warning" : "error";
     buttonColor = (isCorrect) ? "success" : buttonColor;

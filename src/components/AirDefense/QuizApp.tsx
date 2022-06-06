@@ -43,7 +43,7 @@ const QuizSelector = ({availableQuizzes, openQuiz}: {availableQuizzes: QuizConfi
 
 const QuizApp: React.FC = () => {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizConfiguration>();
-  const availableQuizzes = [spaaQuizConfiguration, samQuizConfiguration];
+  const availableQuizzes = [samQuizConfiguration, spaaQuizConfiguration];
   const [bottomNavigationValue, setBottomNavigationValue] = useState(0);
   const [newQuiz, setNewQuiz] = useState(true);
   const openQuiz = (quiz: QuizConfiguration) => {

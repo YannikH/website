@@ -4,8 +4,9 @@ import { green, orange, red } from "@mui/material/colors";
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
 import InfoIcon from '@mui/icons-material/Info';
+import { QuizConfiguration } from "./types";
 
-const EndingCard = ({index, total, correct}: {index: number, total: number, correct: number}) => {
+const EndingCard = ({total, correct, quiz}: {total: number, correct: number, quiz: QuizConfiguration}) => {
   let color: string = green[500];
   let Icon = CheckIcon;
   let text = "Great job!";
@@ -23,9 +24,10 @@ const EndingCard = ({index, total, correct}: {index: number, total: number, corr
     <Card style={{ backgroundColor: color, color: 'white', flexGrow: '1', display: 'flex', flexDirection: 'column' }}>
       <CardContent style={{flexGrow: '1', display: 'flex', flexDirection: 'column'}}>
         <Box style={{ textAlign: 'center', flexGrow: '1', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Typography variant="h1"><Icon fontSize="inherit"/></Typography>
+          <Typography variant="h4">{quiz.title}</Typography>
+          <Box mt={2}><Typography variant="h1"><Icon fontSize="inherit"/></Typography></Box>
           <Typography variant="h4">You got</Typography>
-          <Typography variant="h4">{correct} out of {total}</Typography>
+          <Typography variant="h4" fontWeight={'bold'}>{correct} out of {total}</Typography>
           <Typography variant="h4">questions right</Typography>
           <Box m={3}></Box>
           <Typography variant="h4">{text}</Typography>

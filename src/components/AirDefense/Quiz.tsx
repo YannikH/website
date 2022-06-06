@@ -102,6 +102,7 @@ export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz, scrollableRef}: Qu
     } else {
       saveQuizInstance(questionIndex + 1, questionsList, correctAnswers)
     }
+    if (questionIndex + 1 === questionsList.length) setQuestionIndex(questionIndex + 1);
     console.log('correct answers', correctAnswers)
   };
 
@@ -126,7 +127,7 @@ export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz, scrollableRef}: Qu
     {allQuestionCards}
     <Slide in={questionIndex >= questionsList.length}>
       <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <EndingCard {...{index: questionIndex, total: questionsList.length, correct: correctAnswers}}/>
+        <EndingCard {...{index: questionIndex, total: questionsList.length, correct: correctAnswers, quiz: quizConfiguration}}/>
       </div>
     </Slide>
   </QuizCardContainer>

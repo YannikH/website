@@ -10,6 +10,7 @@ import QuizListItem from "./QuizListItem";
 import { ViewList } from "@mui/icons-material";
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import { Link } from 'react-router-dom';
+import { useTheme } from "@mui/material";
 
 export type AnswerFunction = (answer: string, question: Question) => boolean;
 export type QuestionBase = {
@@ -56,7 +57,7 @@ const QuizApp: React.FC = () => {
   };
   const scrollableRef = useRef<HTMLElement>(null)
   return (
-    <Box style={{ height: "100%", position: 'relative', display: 'flex', flexDirection: 'column' }}>
+    <Box style={{ height: "100%", position: 'relative', display: 'flex', flexDirection: 'column', backgroundColor: useTheme().palette.background.default }}>
       <ConfettiCanvas id={'confettiCanvas'}/>
       <AppBar position="static">
         <Toolbar variant="dense">

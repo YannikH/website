@@ -2,12 +2,17 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import React from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import { DeviceEmulator, DeviceFrameset, DeviceSelector } from "react-device-frameset";
+import { Helmet } from "react-helmet";
 import { Route, Routes } from "react-router-dom";
 import QuizApp from "./QuizApp";
+import { useTheme } from "@mui/material";
 
 const MobileWrapped = () => (
   <>
     <MobileView style={{height: '100%'}}>
+      <Helmet>
+          <style>{'body { background-color: ' + useTheme().palette.primary.main + '}'}</style>
+      </Helmet>
       <QuizApp/>
     </MobileView>
     <BrowserView>
@@ -25,20 +30,11 @@ const MobileWrapped = () => (
   </>
 )
 
-const QuizTest = () => (
-  <>
-    <DeviceFrameset device="iPhone X">
-      <QuizApp/>
-    </DeviceFrameset>
-  </>
-);
-
 const AirDefense = () => {
   document.title = "Air Defense Quizzes"
   return (
     <Routes>
       <Route path="/" element={<MobileWrapped/>}></Route>
-      <Route path="/devices" element={<QuizTest/>}></Route>
     </Routes>
   )
 };

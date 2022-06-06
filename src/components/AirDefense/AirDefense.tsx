@@ -11,9 +11,16 @@ const MobileWrapped = () => (
       <QuizApp/>
     </MobileView>
     <BrowserView>
-      <DeviceFrameset device="iPhone 8 Plus" color="black">
-        <QuizApp/>
-      </DeviceFrameset>
+      <Box m={5}>
+        <Typography variant="h1" align="center">Air Defense Recognition</Typography>
+        <Typography variant="h6" align="center">This webpage is intended to be opened on mobile devices</Typography>
+        <Typography variant="h6" align="center">Open this page on your mobile phone for a better experience</Typography>
+      </Box>
+      <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <DeviceFrameset device="iPhone 8 Plus" color="black">
+          <QuizApp/>
+        </DeviceFrameset>
+      </Box>
     </BrowserView>
   </>
 )

@@ -88,7 +88,7 @@ export const samQuizConfiguration: QuizConfiguration = {
     createSAM("10","Grumble","150","88","Radar","Flap Lid or Tombstone",true,"","https://upload.wikimedia.org/wikipedia/commons/e/e5/S-300_-_2009_Moscow_Victory_Day_Parade_%282%29.jpg"),
     createSAM("11/17/27","Gadfly/Grizzly","45","72","Radar","Snow Drift/Chairback",false,"","https://upload.wikimedia.org/wikipedia/commons/a/a8/Buk-M1-2_9A310M1-2.jpg"),
     createSAM("12A","Gladiator","75","82","Radar","Grill Pan",true,"","http://www.ausairpower.net/PVO-SV/9P83-TELAR-Deployed-MiroslavGyurosi-1S.jpg"),
-    createSAM("12B","Giant","200","98","Radar","Grill Pan",false,"","https://www.globalsecurity.org/military/world/russia/images/s-300v-9a82-image01.jpg"),
+    createSAM("12B","Giant","200","98","Radar","Grill Pan",false,"","https://www.globalsecurity.org/military/world/russia/images/s-300v-9a83-image01.jpg"),
     createSAM("13","Gopher","5","10","Infra-red","Snap Shot",false,"","https://upload.wikimedia.org/wikipedia/commons/0/01/9A35_combat_vehicle_9K35_Strela-10_-_TankBiathlon14part2-37.jpg"),
     createSAM("14","Gremlin","5","10","Infra-red","None",false,"","https://en.missilery.info/files/m/strela_3/strela-3.jpg"),
     createSAM("15","Gauntlet","12","33","Radar","Scrum Half",false,"","https://upload.wikimedia.org/wikipedia/commons/e/e4/Tor-M1_SAM_%282%29.jpg"),

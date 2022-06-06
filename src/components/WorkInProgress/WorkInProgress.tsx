@@ -60,7 +60,7 @@ const MediaItem = ({icon, name, link}: {icon: IconProp; name: string, link: stri
 const WorkInProgress = () => {
   document.title = "Work In Progress"
   return (
-    <div>
+    <div style={{ height: '100%' }}>
       <WipContainer>
         <WipCard>
           <WipTitle>Work In Progress</WipTitle>

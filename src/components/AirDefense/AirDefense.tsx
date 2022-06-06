@@ -4,17 +4,19 @@ import { DeviceEmulator, DeviceFrameset, DeviceSelector } from "react-device-fra
 import { Route, Routes } from "react-router-dom";
 import Quiz from "./Quiz";
 
-const QuizWrapped = () => (
-  <DeviceFrameset device="Nexus 5">
-    <Quiz/>
-  </DeviceFrameset>
+const QuizTest = () => (
+  <>
+    <DeviceFrameset device="Nexus 5">
+      <Quiz/>
+    </DeviceFrameset>
+  </>
 );
 
 const AirDefense = () => {
   return (
     <Routes>
       <Route path="/" element={<Quiz/>}></Route>
-      <Route path="/devices" element={<QuizWrapped/>}></Route>
+      <Route path="/devices" element={<QuizTest/>}></Route>
     </Routes>
   )
 };

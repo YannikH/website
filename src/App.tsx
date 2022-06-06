@@ -20,7 +20,7 @@ function App() {
           :
           <Route path="/" element={<WorkInProgress/>}></Route>
         }
-        <Route path="/blog/*" element={<Blog/>}></Route>
+        {/* <Route path="/blog/*" element={<Blog/>}></Route> */}
         <Route path="/mobile/*" element={<MobileApp/>}></Route>
         <Route path="/airdefense/*" element={<AirDefense/>}></Route>
       </Routes>

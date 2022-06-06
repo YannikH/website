@@ -5,8 +5,9 @@ import { useState } from "react";
 import { MultipleChoiceQuestion, Question } from "./Quiz";
 import styled from 'styled-components'
 
+type QuestionProps = {question: Question, answerCallback: (result: boolean) => void, answered: boolean, setAnswered: React.Dispatch<boolean>};
 
-const NumberQuestionDisplay = ({question, answerCallback}: {question: Question, answerCallback: (result: boolean) => void}) => {
+const NumberQuestionDisplay = ({question, answerCallback, answered, setAnswered}: QuestionProps) => {
   const [number, setNumber] = useState("");
   return (
     <>
@@ -19,21 +20,35 @@ const NumberQuestionDisplay = ({question, answerCallback}: {question: Question, 
   );
 };
 
-const MultipleChoiceQuestionDisplay = ({question, answerCallback}: {question: MultipleChoiceQuestion, answerCallback: (result: boolean) => void}) => {
+const AnswerButton = ({option, question, answerCallback, answered, setAnswered}: QuestionProps & {option: string}) => {
+  if (!answered) {
+    return (<Button onClick={() => {
+      setAnswered(true)
+      answerCallback(question.answerFn(option, question))}
+    }>{option}</Button>);
+  } else {
+    const buttonColor = (question.answerFn(option, question)) ? "success" : "warning";
+    return (<Button variant="contained" color={buttonColor}>{option}</Button>)
+  };
+};
+
+const MultipleChoiceQuestionDisplay = ({question, answerCallback, answered, setAnswered}: QuestionProps) => {
   return (
     <>
       <Typography variant="h6">{question.question}</Typography>
       <ButtonGroup style={{ width: "100%" }} orientation="vertical">
-        {question.options.map(option => <Button key={option} onClick={() => answerCallback(question.answerFn(option, question))}>{option}</Button>)}
+        {(question as MultipleChoiceQuestion).options.map(option => 
+          <AnswerButton key={option} option={option} {...{question, answered, answerCallback, setAnswered}}></AnswerButton>
+        )}
       </ButtonGroup>
     </>
   );
 };
 
-export const QuestionDisplay = ({question, answerCallback}: {question: Question, answerCallback: (result: boolean) => void}) => {
+export const QuestionDisplay = ({question, answerCallback, answered, setAnswered}: QuestionProps) => {
   switch (question.type) {
-    case "number": return <NumberQuestionDisplay question={question} answerCallback={answerCallback}/>
-    case "multipleChoice": return <MultipleChoiceQuestionDisplay question={question as MultipleChoiceQuestion} answerCallback={answerCallback} />
+    case "number": return <NumberQuestionDisplay {...{question, answered, answerCallback, setAnswered}}/>
+    case "multipleChoice": return <MultipleChoiceQuestionDisplay {...{question, answered, answerCallback, setAnswered}}/>
   }
 };
 
@@ -51,9 +66,10 @@ export const QuizCardWrapper = styled.div`
   width: 100%;
 `;
 
-type QuizCardProps = {question: Question, system:SAM, answerCallback: (result:boolean) => void};
+type QuizCardProps = {question: Question, system:SAM, answerCallback: (result:boolean, action?: string) => void};
 
 export const QuizCard: React.FC<QuizCardProps> = ({system, question, answerCallback}: QuizCardProps) => {
+  const [answered, setAnswered] = useState(false);
   return (
     <Box m={2}>
       <Card>
@@ -62,7 +78,10 @@ export const QuizCard: React.FC<QuizCardProps> = ({system, question, answerCallb
           image={system.image}
         />
         <CardContent>
-          <QuestionDisplay {...{question}} answerCallback={answerCallback}/>
+          <QuestionDisplay {...{question, answered, answerCallback, setAnswered}} />
+          { answered ? <Box mt={2}>
+            <Button variant="contained" style={{ width: "100%" }} onClick={() => answerCallback(false, "continue")}>Continue</Button>
+          </Box> : <></>}
         </CardContent>
       </Card>
     </Box>

@@ -8,9 +8,8 @@ export const createMultipleChoice: QuestionGenerator = (system: System, field: k
   const answer = system[field];
   const possibleAnswersSliced = possibleAnswers.filter((val => val !== answer));
   const answers = [answer].concat(possibleAnswersSliced)
-  const answersReduced = (answers).slice(0, Math.min(5, possibleAnswersSliced.length + 1));
+  const answersReduced = (answers).slice(0, Math.min(4, possibleAnswersSliced.length + 1));
   const shuffledAnswers = answersReduced.sort(() => 0.5 - Math.random());
-  console.log(possibleAnswers)
   return {
     type: "multipleChoice",
     question: questionText,

@@ -3,7 +3,7 @@ import React from "react";
 import { Quiz } from "./Quiz";
 import { useState } from "react";
 import styled from "styled-components";
-import { samQuizConfiguration } from "./SamQuizConfiguration";
+import { samCapabilities, samQuizConfiguration, samRanges, samRecognition } from "./SamQuizConfiguration";
 import { QuizConfiguration, System } from "./types";
 import { spaaQuizConfiguration } from "./SPAAQuizConfiguration";
 import QuizListItem from "./QuizListItem";
@@ -36,17 +36,20 @@ const ConfettiCanvas = styled.canvas`
   pointer-events: none;
 `;
 
-const QuizSelector = ({availableQuizzes, openQuiz}: {availableQuizzes: QuizConfiguration[]; openQuiz: (quiz: QuizConfiguration) => void}) => {
+const QuizSelector = ({availableQuizzes, openQuiz}: {availableQuizzes: QuizConfiguration[]; openQuiz: (quiz: QuizConfiguration, number: number) => void}) => {
   const quizlist = availableQuizzes.map(quiz => <QuizListItem {...{quiz, openQuiz}} key={quiz.title}/>);
   return <Box style={{ height: "100%" }}>{ quizlist}</Box>
 };
 
 const QuizApp: React.FC = () => {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizConfiguration>();
-  const availableQuizzes = [samQuizConfiguration, spaaQuizConfiguration];
+
+  const availableQuizzes = [samRecognition, samCapabilities, samRanges, spaaQuizConfiguration];
+
   const [bottomNavigationValue, setBottomNavigationValue] = useState(0);
   const [newQuiz, setNewQuiz] = useState(true);
-  const openQuiz = (quiz: QuizConfiguration) => {
+  const openQuiz = (quiz: QuizConfiguration, quizLength: number) => {
+    quiz.length = quizLength;
     setNewQuiz(true)
     setSelectedQuiz(quiz)
     setBottomNavigationValue(1)
@@ -57,13 +60,13 @@ const QuizApp: React.FC = () => {
       <AppBar position="static">
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit" component="div">
-            Air Defense Recognition
+            Air Defense Quizzes
           </Typography>
         </Toolbar>
       </AppBar>
-      <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'space-around', height: '100%', overflow: 'scroll', overflowX: 'hidden'}}>
+      <Box sx={{ flexGrow: '1', display: 'flex', flexDirection: "column", justifyContent: 'space-around', overflow: 'scroll', overflowX: 'hidden'}}>
         { (selectedQuiz && bottomNavigationValue > 0) ? 
-          <Quiz quizConfiguration={selectedQuiz} newQuiz={newQuiz} setNewQuiz={setNewQuiz}/> :
+          <Quiz quizConfiguration={selectedQuiz} newQuiz={newQuiz} setNewQuiz={setNewQuiz} /> :
           <QuizSelector {...{availableQuizzes, openQuiz}}/>
         }
       </Box>

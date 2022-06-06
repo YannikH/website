@@ -23,5 +23,6 @@ export type QuizConfiguration = {
   description: string,
   image: string,
   questions: Array<QuestionConfiguration>
-  systems: Array<System>
+  systems: Array<System>,
+  length?: number
 }

@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti'
 import { Box, Slide, Typography } from "@mui/material";
 import { AllAnswerOptions, AllAnswerOptions as AllFieldOptions, Guidance, QuizConfiguration, System } from "./types";
 import { get, set } from "local-storage";
+import EndingCard from "./EndingCard";
 
 const createConfetti = () => {
   const myCanvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
@@ -38,7 +39,9 @@ const prepareQuizQuestions = (quizConfiguration: QuizConfiguration) => {
       questionsList.push({system: system, question: generator(system, field as keyof System, questionText, allOptions)})
     })
   });
-  return questionsList.sort(() => 0.5 - Math.random());
+  const questionsShuffled =  questionsList.sort(() => 0.5 - Math.random());
+  if (quizConfiguration.length && quizConfiguration.length > 0) questionsShuffled.splice(quizConfiguration.length)
+  return questionsShuffled;
 };
 
 type QuestionsList = Array<{system: System, question: Question}>;
@@ -72,7 +75,9 @@ const ProgressDisplay = ({index, total, correct}: {index: number, total: number,
   </Box>
 );
 
-export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: {quizConfiguration: QuizConfiguration, newQuiz: boolean, setNewQuiz: React.Dispatch<boolean>}) => {
+type QuizProps = {quizConfiguration: QuizConfiguration, newQuiz: boolean, setNewQuiz: React.Dispatch<boolean>};
+
+export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: QuizProps) => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questionsList, setQuestionsList] = useState<QuestionsList>([])
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -112,5 +117,10 @@ export const Quiz = ({quizConfiguration, newQuiz, setNewQuiz}: {quizConfiguratio
 
   return <QuizCardContainer>
     {allQuestionCards}
+    <Slide in={questionIndex >= questionsList.length}>
+      <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <EndingCard {...{index: questionIndex, total: questionsList.length, correct: correctAnswers}}/>
+      </div>
+    </Slide>
   </QuizCardContainer>
 };

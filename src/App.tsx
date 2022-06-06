@@ -12,14 +12,15 @@ import React from 'react'
 
 
 function App() {
+  let HomeComponent = WorkInProgress;
+  switch (window.location.host.split('.')[0]) {
+    case "app": HomeComponent = MobileApp; break;
+    case "quiz": HomeComponent = AirDefense; break;
+  }
   return (
     <Router>
       <Routes>
-        {window.location.host.split('.')[0] === 'app' ?
-          <Route path="/" element={<MobileApp/>}></Route>
-          :
-          <Route path="/" element={<WorkInProgress/>}></Route>
-        }
+        <Route path="/" element={<HomeComponent/>}></Route>
         {/* <Route path="/blog/*" element={<Blog/>}></Route> */}
         <Route path="/mobile/*" element={<MobileApp/>}></Route>
         <Route path="/airdefense/*" element={<AirDefense/>}></Route>

@@ -7,7 +7,7 @@ import QuizApp from "./QuizApp";
 
 const MobileWrapped = () => (
   <>
-    <MobileView>
+    <MobileView style={{height: '100%'}}>
       <QuizApp/>
     </MobileView>
     <BrowserView>

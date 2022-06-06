@@ -1,47 +1,70 @@
-import { AppBar, Box, Button, ButtonGroup, Card, CardContent, CardMedia, TextField, Toolbar, Typography } from "@mui/material";
-import React from "react";
-import { SAM, SamQuiz, SamSystems } from "./SamSystems";
-import { useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useMemo, useState } from "react";
+import { MultipleChoiceQuestion, Question } from "./QuizApp";
+import { QuizCard, QuizCardContainer, QuizCardWrapper } from "./QuizCard";
+import confetti from 'canvas-confetti'
+import { Slide } from "@mui/material";
+import { AllAnswerOptions, AllAnswerOptions as AllFieldOptions, Guidance, QuizConfiguration, System } from "./types";
 
-export type AnswerFunction = (answer: string, question: Question) => boolean;
-export type QuestionBase = {
-  type: "number" | "multipleChoice";
-  question: string;
-  answerFn: AnswerFunction;
+const createConfetti = () => {
+  const myCanvas = document.getElementById('confettiCanvas') as HTMLCanvasElement;
+  return confetti.create(myCanvas, {
+    resize : true
+  });
 }
 
-export type NumberQuestion = QuestionBase & {type: "number"};
-export type MultipleChoiceQuestion = QuestionBase & {
-  type: "multipleChoice";
-  options: Array<string>;
+const getAllOptions = (quizConfiguration: QuizConfiguration) => {
+  const allOptions: {[key: string]: any} = {};
+
+  quizConfiguration.questions.forEach(({field}) => allOptions[field] = []);
+
+  quizConfiguration.systems.forEach(system => {
+    Object.keys(allOptions).forEach((key: string) => {
+      const list = allOptions[key as keyof AllAnswerOptions<System>];
+      const value = system[key as keyof System];
+      if(list.indexOf(value as never) === -1) {
+        list.push(value as never)
+      }
+    })
+  });
+  return allOptions as AllFieldOptions<System>;
+}
+
+const prepareQuizQuestions = (quizConfiguration: QuizConfiguration) => {
+  const allOptions = getAllOptions(quizConfiguration);
+  const questionsList: Array<{system: System, question: Question}> = [];
+  quizConfiguration.systems.forEach(system => {
+    quizConfiguration.questions.forEach(({field, questionText, generator}) => {
+      questionsList.push({system: system, question: generator(system, field as keyof System, questionText, allOptions)})
+    })
+  });
+  return questionsList.sort(() => 0.5 - Math.random());
 };
 
-export type Question = NumberQuestion | MultipleChoiceQuestion;
+export const Quiz = ({quizConfiguration}: {quizConfiguration: QuizConfiguration}) => {
+  const [questionIndex, setQuestionIndex] = useState(0);
+  
+  const myConfetti = createConfetti();
+  const answerCallback = (result: boolean, action = "answer") => {
+    if (action === "continue") {
+      setQuestionIndex(questionIndex + 1);
+    } else if (result) {
+      myConfetti()
+    }
+  };
 
-const ConfettiCanvas = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  pointer-events: none;
-`;
-const Quiz: React.FC = () => (
-  <Box style={{ height: "100%" }}>
-    <ConfettiCanvas id={'confettiCanvas'}/>
-    <AppBar position="static">
-      <Toolbar variant="dense">
-        <Typography variant="h6" color="inherit" component="div">
-          Air Defense Recognition
-        </Typography>
-      </Toolbar>
-    </AppBar>
-    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'space-around', height: '100%' }}>
-      <SamQuiz/>
-    </Box>
-  </Box>
-);
+  let questionsList: Array<{system: System, question: Question}> = useMemo(() => {
+    console.log("preparing questions")
+    return prepareQuizQuestions(quizConfiguration);
+  }, [])
+  const allQuestionCards = questionsList.map(({system, question}, index) => 
+    <Slide in={questionIndex === index} key={index} direction="left">
+      <QuizCardWrapper>
+        <QuizCard question={question} system={system} answerCallback={answerCallback}/>
+      </QuizCardWrapper>
+    </Slide>
+  )
 
-export default Quiz
+  return <QuizCardContainer>
+    {allQuestionCards}
+  </QuizCardContainer>
+};

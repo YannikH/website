@@ -1,9 +1,9 @@
-import { AppBar, Box, Button, ButtonGroup, Card, CardContent, CardMedia, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Card, CardContent, CardMedia, TextField, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import { SAM, SamSystems } from "./SamSystems";
 import { useState } from "react";
-import { MultipleChoiceQuestion, Question } from "./Quiz";
+import { MultipleChoiceQuestion, Question } from "./QuizApp";
 import styled from 'styled-components'
+import { System } from "./types";
 
 type QuestionProps = {question: Question, answerCallback: (result: boolean) => void, answered: boolean, setAnswered: React.Dispatch<boolean>};
 
@@ -76,7 +76,7 @@ export const QuizCardWrapper = styled.div`
   width: 100%;
 `;
 
-type QuizCardProps = {question: Question, system:SAM, answerCallback: (result:boolean, action?: string) => void};
+type QuizCardProps = {question: Question, system:System, answerCallback: (result:boolean, action?: string) => void};
 
 export const QuizCard: React.FC<QuizCardProps> = ({system, question, answerCallback}: QuizCardProps) => {
   const [answered, setAnswered] = useState(false);

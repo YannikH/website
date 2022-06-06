@@ -20,25 +20,35 @@ const NumberQuestionDisplay = ({question, answerCallback, answered, setAnswered}
   );
 };
 
-const AnswerButton = ({option, question, answerCallback, answered, setAnswered}: QuestionProps & {option: string}) => {
+type ChosenAnswerProps = {chosenAnswer: string, setChosenAnswer: React.Dispatch<string>};
+
+const AnswerButton = ({option, question, answerCallback, answered, setAnswered, chosenAnswer, setChosenAnswer}: QuestionProps & {option: string} & ChosenAnswerProps) => {
   if (!answered) {
     return (<Button onClick={() => {
-      setAnswered(true)
-      answerCallback(question.answerFn(option, question))}
+        setAnswered(true)
+        setChosenAnswer(option)
+        answerCallback(question.answerFn(option, question))
+      }
     }>{option}</Button>);
   } else {
-    const buttonColor = (question.answerFn(option, question)) ? "success" : "warning";
-    return (<Button variant="contained" color={buttonColor}>{option}</Button>)
+    const isCorrect = question.answerFn(option, question);
+    const isChosen = (chosenAnswer === option);
+    let buttonColor: "warning" | "error" | "success" = (isChosen) ? "warning" : "error";
+    buttonColor = (isCorrect) ? "success" : buttonColor;
+    let text = (isCorrect) ? `${option} (Correct answer)` : option;
+    text = (isChosen) ? `${option} (Your answer)` : text;
+    return (<Button variant="contained" color={buttonColor}>{text}</Button>)
   };
 };
 
 const MultipleChoiceQuestionDisplay = ({question, answerCallback, answered, setAnswered}: QuestionProps) => {
+  const [chosenAnswer, setChosenAnswer] = useState("");
   return (
     <>
       <Typography variant="h6">{question.question}</Typography>
       <ButtonGroup style={{ width: "100%" }} orientation="vertical">
         {(question as MultipleChoiceQuestion).options.map(option => 
-          <AnswerButton key={option} option={option} {...{question, answered, answerCallback, setAnswered}}></AnswerButton>
+          <AnswerButton key={option} option={option} {...{question, answered, answerCallback, setAnswered, chosenAnswer, setChosenAnswer}}></AnswerButton>
         )}
       </ButtonGroup>
     </>

@@ -5,8 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
 import Article from './Article';
 import Editor from './Editor';
-import React from 'react';
-import content from './content.json'
+import React, { useEffect, useState } from 'react';
+import GetBlogContent, { BlogContent } from './BlogAdapter';
 
 const PreviewCard = ({title, preview, id}: {title: string; preview: string; id: string;}) => (
   <BlankLink to={`/blog/${id}`}>
@@ -21,12 +21,28 @@ const PreviewCard = ({title, preview, id}: {title: string; preview: string; id: 
   </BlankLink>
 )
 
+export const PreviewDisplay = ({articleCount}: {articleCount?: number}) => {
+  const [blogContent, setBlogContent] = useState<BlogContent>()
+  const [articlePreviews, setArticlePreviews] = useState<any>()
+  useEffect(() => {
+    if (blogContent) {
+      const articlePreviewList = blogContent.map((art: any) => <><PreviewCard {...art}></PreviewCard></>)
+      setArticlePreviews(articlePreviewList)
+    } else {
+      GetBlogContent().then(blogContent => setBlogContent(blogContent));
+    }
+  }, [blogContent]);
+  if (articlePreviews) {
+    return articleCount ? articlePreviews.slice(0, articleCount) : articlePreviews
+  }
+  return <></>
+}
+
 const BlogHome = () => {
-  const articlePreviewList = content.pages.map((art: any) => <><PreviewCard {...art}></PreviewCard></>)
   document.title = "Laser Guided Bullshit"
   return (
     <BlogPage>
-      { articlePreviewList }
+      <PreviewDisplay />
     </BlogPage>
   );
 }
@@ -54,7 +70,7 @@ const Blog = () => (
       <Route path="/" element={<BlogHome/>}></Route>
       <Route path="/404" element={<NotFound/>}></Route>
       <Route path="/:articleId" element={<Article/>}></Route>
-      <Route path="/Editor" element={<Editor/>}></Route>
+      <Route path="/editor" element={<Editor/>}></Route>
     </Routes>
   </ThemeProvider>
 )

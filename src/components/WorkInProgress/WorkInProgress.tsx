@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonDigging } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { IconProp, library } from '@fortawesome/fontawesome-svg-core'
+import { PreviewDisplay } from '../Blog/Blog';
+import { Box, Container } from '@mui/material';
+import MarkDown from '../Util/MarkDown';
 
 library.add(faPersonDigging, faLinkedin, faGithub)
 
@@ -74,6 +77,7 @@ const WorkInProgress = () => {
             <MediaItem icon={faGithub} name={"YannikH"} link={"https://github.com/YannikH"}></MediaItem>
           </MediaList>
       </WipContainer>
+      
     </div>
   );
 };

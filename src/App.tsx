@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import React from 'react'
 import Helmet from 'react-helmet';
+import Notes from './components/Blog/Notes';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/blog/*" element={<Blog/>}></Route>
           <Route path="/mobile/*" element={<MobileApp/>}></Route>
           <Route path="/airdefense/*" element={<AirDefense/>}></Route>
+          <Route path="/notes/*" element={<Notes/>}></Route>
         </Routes>
       </Router>
     </>

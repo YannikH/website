@@ -30,6 +30,12 @@ const MathOperation = (operator: string, left: number, right: number): number =>
   return NaN
 }
 
+const advancedParseInt = (text: string): number => {
+  const number = (text.match(/-?\d+/gm))
+  if (number) return parseInt(number[0])
+  return NaN
+}
+
 const Calculate = (text: string): string => {
   console.log('entering calculator with', text)
   let editedText = text;
@@ -41,7 +47,6 @@ const Calculate = (text: string): string => {
     editedText = editedText.replace(subString, Calculate(subString))
     console.log("continuing after parentheses with ", editedText)
   }
-  const split = editedText.match(/(-?\d+)|(\+|-|x|\|\/*)/gm)
   const regexes = [
     // /(-?\d+)|(\/|\*|x)/gm, //multdiv
     // /(-?\d+)|(\+|-)/gm, //addsub
@@ -50,8 +55,8 @@ const Calculate = (text: string): string => {
   ]
   regexes.forEach(regexp => {
     // const split = editedText.match(regexp)
-    const split = editedText.match(/(-?\d+)|(\+|-|x|\/|\*)/gm)
-    // console.log(split)
+    const split = editedText.match(/(-?\d+)|((?<= )|\d)(\+|-|x|\/|\*)((?= )|\d)|(((?<= )|^).+?(?= ))/gm)
+    console.log(split)
     split?.forEach((value, index) => {
       const splitCopy = [...split];
       const isOperator = value.match(regexp)
@@ -61,9 +66,9 @@ const Calculate = (text: string): string => {
         const right = splitCopy[index + 1]
         if(left && right) {
           
-          const result = MathOperation(value, parseInt(left), parseInt(right))
+          const result = MathOperation(value, advancedParseInt(left), advancedParseInt(right))
           splitCopy.splice(index - 1, 3, `${result}`)
-          // console.log('calculating', left, value, right, 'with result = ', result, 'leftover function is ', split.join(' '))
+          console.log('calculating', left, value, right, 'with result = ', result, 'leftover function is ', split.join(' '))
           editedText =  Calculate(splitCopy.join(' '))
         }
       }
@@ -181,6 +186,9 @@ const Notes = () => {
             />
           </Container>
         : <></>}
+        <Container>
+          {articleContents }
+        </Container>
         <Container>
           {/* <ReactMarkdown components={{ code: Code }}>{articleContents}</ReactMarkdown> */}
           <ReactMarkdown components={{ code: Code }}>{ articleContents }</ReactMarkdown>

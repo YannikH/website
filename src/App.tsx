@@ -11,6 +11,7 @@ import {
 import React from 'react'
 import Helmet from 'react-helmet';
 import Notes from './components/Blog/Notes';
+import Landing from './components/Portfolio/Landing';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
       </Helmet>
       <Router>
         <Routes>
-          <Route path="/" element={<HomeComponent/>}></Route>
+          <Route path="/" element={<Landing/>}></Route>
           <Route path="/blog/*" element={<Blog/>}></Route>
           <Route path="/mobile/*" element={<MobileApp/>}></Route>
           <Route path="/airdefense/*" element={<AirDefense/>}></Route>

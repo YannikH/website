@@ -10,8 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const ContactColumn = styled(Column)`
   width: 50%;
   :last-child {
-    border-left: solid 1px ${ props => props.theme.secondary };
-    padding-left: 30px;
+    @media only screen and (max-width: 1000px) {
+      padding-top: 20px;
+    }
+    @media only screen and (min-width: 999px) {
+      border-left: solid 1px ${ props => props.theme.secondary };
+      padding-left: 30px;
+    }
   }
 `;
 

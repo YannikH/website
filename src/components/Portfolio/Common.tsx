@@ -37,6 +37,10 @@ export const Subtitle = styled.h2`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Column = styled.div`

@@ -8,6 +8,9 @@ const FooterContainer = styled(Row)`
   padding: 30px;
   color: white;
   align-items: flex-end;
+  @media only screen and (max-width: 1000px) {
+    flex-direction: row;
+  }
 `;
 
 const Footer = () => (

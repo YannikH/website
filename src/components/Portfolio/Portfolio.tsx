@@ -87,15 +87,28 @@ const projects : Project[] = [
 const CarouselContainer = styled.div`
   min-width: 50%;
   max-width: 50%;
+  @media only screen and (max-width: 1000px) {
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 const PortfolioContainer = styled.div`
   padding: 0 30px;
 `;
 
+const ProjectRow = styled(Row)`
+  padding: 20px 0;
+  align-items: center;
+  @media only screen and (max-width: 1000px) {
+    flex-direction: column-reverse;
+    border-bottom: solid 1px ${ props => props.theme.secondary };
+  }
+`;
+
 const Project = ({title, skills, goals, images, description}: Project) => {
   return (
-    <Row style={{ padding: '20px 0', alignItems:'center' }}>
+    <ProjectRow>
       <CarouselContainer>
         <ImageCarousel images={ images }/>
       </CarouselContainer>
@@ -111,7 +124,7 @@ const Project = ({title, skills, goals, images, description}: Project) => {
           { goals.map(goal => <li>{ goal }</li>) }
         </GoalList>
       </Box>
-    </Row>
+    </ProjectRow>
   );
 };
 

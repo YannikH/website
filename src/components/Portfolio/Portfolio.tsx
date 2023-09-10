@@ -1,3 +1,4 @@
+import { YouTube, Link } from '@mui/icons-material';
 import { Box, Chip } from '@mui/material';
 import React from 'react'
 import styled from 'styled-components';
@@ -44,7 +45,12 @@ const PortfolioDescription = styled.div`
   margin: 30px;
 `;
 
-type ProjectLinkData = {link: string, label: string, description: string};
+type ProjectLinkData = {
+  link: string,
+  label: string,
+  description: string,
+  type?: 'Youtube'
+};
 
 type Project = {
   title: string,
@@ -82,7 +88,7 @@ const projects : Project[] = [
     ],
     images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png'],
     links: [
-      {label: 'Test footage', description: '', link: 'https://www.youtube.com/watch?v=pmcj5hLapbo&ab_channel=Yax'},
+      {label: 'Test footage', description: '', link: 'https://www.youtube.com/watch?v=pmcj5hLapbo&ab_channel=Yax', type: 'Youtube'},
       {label: 'Team Interview', description: '', link: 'https://www.helisimmer.com/interview/interview-project-hatchet-arma-3-blackhawk'},
       {label: 'Example ref doc: engine instruments', description: '', link: 'https://docs.google.com/document/d/17zrnR8zU0gkxW_CgC7hJ4myaEql_y0AIpVN0JQstkUs/edit?usp=sharing'},
       {label: 'Example ref doc: MH-60M Exterior features', description: '', link: 'https://docs.google.com/presentation/d/1lf11zpj2yOJOVoQe16BEU9TifCzXm5FDYklQ-SOXQic/edit?usp=sharing'},
@@ -101,8 +107,8 @@ const projects : Project[] = [
     ],
     images: ['assets/sogpf/1.jpg', 'assets/sogpf/2.jpg', 'assets/sogpf/3.jpg'],
     links: [
+      {label: 'Trailer', description: '', link: 'https://www.youtube.com/watch?v=ka2kXeRWgFs', type: 'Youtube'},
       {label: 'Steam Store', description: '', link: 'https://store.steampowered.com/app/1227700/Arma_3_Creator_DLC_SOG_Prairie_Fire/'},
-      {label: 'Trailer', description: '', link: 'https://www.youtube.com/watch?v=ka2kXeRWgFs'}
     ]
   },
   {
@@ -115,7 +121,7 @@ const projects : Project[] = [
     ],
     images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg'],
     links: [
-      {label: 'Release video', description: '', link: 'https://www.youtube.com/watch?v=oZkHxipsj5w&ab_channel=Yax'},
+      {label: 'Release video', description: '', link: 'https://www.youtube.com/watch?v=oZkHxipsj5w&ab_channel=Yax', type: 'Youtube'},
       {label: 'User manual', description: '', link: 'https://docs.google.com/document/d/1GkPktmwmrBR5OXrPUqc6rwRRMUCZC_n6_b6OHKI9Ogc/edit#heading=h.lpiepsfbap1g'}
     ]
   }
@@ -146,17 +152,35 @@ const ProjectRow = styled(Row)`
 const ProjectLinkAnchor = styled.a`
   div {
     cursor: pointer;
-    background-color: ${ props => props.theme.accent };
-    color: ${ props => props.theme.primary };
     margin-top: 10px;
   }
   padding-right: 10px;
 `;
 
-const ProjectLink = ({link, label, description}: ProjectLinkData) => {
+const LinkChip = styled(Chip)`
+  background-color: ${ props => props.theme.accent } !important;
+  color: ${ props => props.theme.primary } !important;
+`;
+
+const YoutubeChip = styled(Chip)`
+  background-color: ${ props => props.theme.accentTertiary } !important;
+  color: ${ props => props.theme.primary } !important;
+  span, path {
+    color: ${ props => props.theme.primary } !important;
+  }
+`;
+
+const ProjectLink = ({link, label, description, type}: ProjectLinkData) => {
+  if (type && type == 'Youtube') {
+    return (
+      <ProjectLinkAnchor href={link} target="_blank">
+        <YoutubeChip icon={<YouTube />} label={label}/>
+      </ProjectLinkAnchor>
+    )
+  }
   return (
     <ProjectLinkAnchor href={link} target="_blank">
-      <Chip label={label}/>
+      <LinkChip label={label}/>
     </ProjectLinkAnchor>
   );
 };

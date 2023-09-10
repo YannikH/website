@@ -215,7 +215,7 @@ const Portfolio = () => (
   <PortfolioContainer>
     <PortfolioDescription>
       <ProjectHeader>Here you can see some of my projects</ProjectHeader>
-      <Content>If you'd only like to see my professional work, feel free to go have a look at my CV</Content>
+      <Content>If you'd only like to see my professional work in a more condensed format, feel free to <a href="https://docs.google.com/document/d/1D-3iDBGCjniavPDoRpARatJQCY82OTPI0Pf8WVJxit4/edit?usp=sharing" target="_blank">have a look at my CV</a></Content>
       <hr />
     </PortfolioDescription>
 

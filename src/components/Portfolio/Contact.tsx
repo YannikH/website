@@ -63,7 +63,7 @@ const Contact = () => {
             <input type="hidden" name="_autoresponse" value="Thank you for contacting me! I'll try to get back to you as soon as I can!"></input>
             <input type="text" name="_honey" style={{display:'none'}}></input>
             <input type="hidden" name="_subject" value="yahegge.nl contact"></input>
-            <input type="hidden" name="_next" value="http://localhost:3000/#About"></input>
+            <input type="hidden" name="_next" value="yahegge.nl/#About"></input>
           </ContactColumn>
         </Row>
       </form>

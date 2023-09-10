@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import { useLocation } from 'react-router-dom';
 import Portfolio from './Portfolio';
 import Footer from './Footer';
+import Contact from './Contact';
 
 
 export const Container = styled.div`
@@ -24,13 +25,19 @@ const theme = {
 };
 
 const Landing = () => {
+  const tabName = useLocation();
+  const activeTab = (): string => {
+    if (!['#About', '#Portfolio', '#Contact'].includes(tabName.hash)) return '#About';
+    return tabName.hash;
+  };
   return (
     <ThemeProvider theme={theme}>
       <Background>
         <Navbar />
         <Body>
-          { useLocation().hash === '#About' ? <About /> : <></> }
-          { useLocation().hash === '#Portfolio' ? <Portfolio /> : <></> }
+          { activeTab() === '#About' ? <About /> : <></> }
+          { activeTab() === '#Portfolio' ? <Portfolio /> : <></> }
+          { activeTab() === '#Contact' ? <Contact /> : <></> }
         </Body>
         <Footer />
       </Background>

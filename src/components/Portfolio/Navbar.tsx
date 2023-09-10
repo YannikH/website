@@ -34,7 +34,8 @@ const SubtitleLink = styled(Subtitle)<{ active?: boolean }>`
 `;
 
 const Navbar = () => {
-  const [active, setActive] = useState('About');
+  const tabName = useLocation();
+  const [active, setActive] = useState(tabName.hash);
 
   const setActiveTab = (tab: string) => {
     setActive(tab);
@@ -45,9 +46,9 @@ const Navbar = () => {
     <NavbarContainer>
       <Title style={{textAlign: 'center'}}>Yannik Hegge</Title>
       <LinkRow>
-        <SubtitleLink active={active == 'About'} onClick={() => setActiveTab('About')}>About</SubtitleLink>
-        <SubtitleLink active={active == 'Portfolio'} onClick={() => setActiveTab('Portfolio')}>Portfolio</SubtitleLink>
-        <SubtitleLink active={active == 'Contact'} onClick={() => setActiveTab('Contact')}>Contact</SubtitleLink>
+        <SubtitleLink active={active == '#About'} onClick={() => setActiveTab('#About')}>About</SubtitleLink>
+        <SubtitleLink active={active == '#Portfolio'} onClick={() => setActiveTab('#Portfolio')}>Portfolio</SubtitleLink>
+        <SubtitleLink active={active == '#Contact'} onClick={() => setActiveTab('#Contact')}>Contact</SubtitleLink>
       </LinkRow>
     </NavbarContainer>
   );

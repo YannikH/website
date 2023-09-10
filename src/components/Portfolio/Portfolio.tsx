@@ -46,6 +46,7 @@ const PortfolioDescription = styled.div`
 
 type Project = {
   title: string,
+  description?: string,
   skills: string[],
   goals: string[],
   images: string[]
@@ -59,32 +60,48 @@ const projects : Project[] = [
       'Create a realistic representation of a UH-60M Blackhawk helicopter in Arma III',
       'Create a multi-crew helicopter, with all systems synchronized between pilot and co-pilot in a multiplayer environment'
     ],
-    images: ['https://placehold.co/400', 'https://placehold.co/400']
+    images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png']
+  },
+  {
+    title: 'Arma 3 SOG: Prairie Fire',
+    description: 'I was part of the development team of the SOG: Prairie Fire third party DLC for Arma 3. On the team my focus was to configure weapons, sensors, displays and instruments for vehicles (mainly aircraft) to give them an authentic, realistic feeling while at the same time being accessible to casual players',
+    skills: ['Game Design', 'Game Scripting', 'Asset configuration'],
+    goals: [
+      'Use existing arma functionality to implement realistic cockpit instrumentation',
+      'Implement weapons systems that authentically represent the technology of the 1960s, that are at the same time simple to use for casual players',
+      'Ensure all new custom features are in line with both Arma 3 and SOG:PF art and design standards'
+    ],
+    images: ['assets/sogpf/1.jpg', 'assets/sogpf/2.jpg', 'assets/sogpf/3.jpg']
   },
   {
     title: 'F/A-18E/F Super Hornet',
-    skills: ['Game Design', 'Game Scripting', 'Prototyping'],
+    skills: ['Game Design', 'Game Scripting', 'Asset configuration', 'Prototyping'],
     goals: [
       'Create the first fixed wing aircraft for Arma III with an interactive cockpit',
       'Build simulator-like weapons, sensors and avionics'
     ],
-    images: ['https://placehold.co/400', 'https://placehold.co/400']
+    images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg']
   }
 ];
 
 const CarouselContainer = styled.div`
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 50%;
+  max-width: 50%;
 `;
 
-const Project = ({title, skills, goals, images}: Project) => {
+const PortfolioContainer = styled.div`
+  padding: 0 30px;
+`;
+
+const Project = ({title, skills, goals, images, description}: Project) => {
   return (
-    <Row style={{ padding: '20px 0' }}>
+    <Row style={{ padding: '20px 0', alignItems:'center' }}>
       <CarouselContainer>
         <ImageCarousel images={ images }/>
       </CarouselContainer>
       <Box p={2}>
         <ProjectTitle>{ title }</ProjectTitle>
+        <Content>{ description }</Content>
         <ProjectHeader>Skills</ProjectHeader>
         <SkillContainer>
           { skills.map(skill => <Chip label={ skill } variant="outlined"></Chip>) }
@@ -99,16 +116,16 @@ const Project = ({title, skills, goals, images}: Project) => {
 };
 
 const Portfolio = () => (
-  <Container>
+  <PortfolioContainer>
     <PortfolioDescription>
-      <ProjectHeader>Here you can see some of my hobby projects</ProjectHeader>
-      <Content>If you'd like to see my professional work, feel free to go have a look at my CV</Content>
+      <ProjectHeader>Here you can see some of my projects</ProjectHeader>
+      <Content>If you'd only like to see my professional work, feel free to go have a look at my CV</Content>
       <hr />
     </PortfolioDescription>
 
     { projects.map(project => <Project {...project}/>)}
 
-  </Container>
+  </PortfolioContainer>
 );
 
 export default Portfolio;

@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 export const Background = styled.div`
   background-color: ${props => props.theme.primary};
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,7 +52,10 @@ export const Content = styled.p`
 
 export const ImageCarousel = ({images}: {images: string[]}) => {
   return (
-    <Carousel showThumbs={false}>
+    <Carousel
+      showThumbs={false}
+      dynamicHeight={true}
+    >
       { images.map(image => (
         <div>
           <img src={ image } />
@@ -61,3 +64,26 @@ export const ImageCarousel = ({images}: {images: string[]}) => {
     </Carousel>
   )
 };
+
+export const IconLink = styled.a`
+  margin: 0 5px;
+  text-decoration: none;
+  color: ${ props => props.theme.secondary };
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  span {
+    padding-left: 10px;
+  }
+  :visited {color: ${ props => props.theme.secondary };};
+  svg {
+    font-size:40px;
+    transition: font-size 0.25s ease;
+    color: ${ props => props.theme.secondary }
+  }
+  :hover {
+    svg {font-size: 50px; }
+  }
+`;

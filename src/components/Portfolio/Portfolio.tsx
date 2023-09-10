@@ -83,8 +83,11 @@ const projects : Project[] = [
     images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png'],
     links: [
       {label: 'Test footage', description: '', link: 'https://www.youtube.com/watch?v=pmcj5hLapbo&ab_channel=Yax'},
+      {label: 'Team Interview', description: '', link: 'https://www.helisimmer.com/interview/interview-project-hatchet-arma-3-blackhawk'},
+      {label: 'Example ref doc: engine instruments', description: '', link: 'https://docs.google.com/document/d/17zrnR8zU0gkxW_CgC7hJ4myaEql_y0AIpVN0JQstkUs/edit?usp=sharing'},
+      {label: 'Example ref doc: MH-60M Exterior features', description: '', link: 'https://docs.google.com/presentation/d/1lf11zpj2yOJOVoQe16BEU9TifCzXm5FDYklQ-SOXQic/edit?usp=sharing'},
       {label: 'User manual', description: '', link: 'https://uh-60m.gitbook.io/workspace/'},
-      {label: 'Github', description: '', link: 'https://github.com/Project-Hatchet/H-60'}
+      {label: 'Github', description: '', link: 'https://github.com/Project-Hatchet/H-60'},
     ]
   },
   {
@@ -97,7 +100,10 @@ const projects : Project[] = [
       'Ensure all new custom features are in line with both Arma 3 and SOG:PF art and design standards'
     ],
     images: ['assets/sogpf/1.jpg', 'assets/sogpf/2.jpg', 'assets/sogpf/3.jpg'],
-    links: []
+    links: [
+      {label: 'Steam Store', description: '', link: 'https://store.steampowered.com/app/1227700/Arma_3_Creator_DLC_SOG_Prairie_Fire/'},
+      {label: 'Trailer', description: '', link: 'https://www.youtube.com/watch?v=ka2kXeRWgFs'}
+    ]
   },
   {
     title: 'F/A-18E/F Super Hornet',
@@ -109,7 +115,8 @@ const projects : Project[] = [
     ],
     images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg'],
     links: [
-      {label: 'Release video', description: '', link: 'https://www.youtube.com/watch?v=oZkHxipsj5w&ab_channel=Yax'}
+      {label: 'Release video', description: '', link: 'https://www.youtube.com/watch?v=oZkHxipsj5w&ab_channel=Yax'},
+      {label: 'User manual', description: '', link: 'https://docs.google.com/document/d/1GkPktmwmrBR5OXrPUqc6rwRRMUCZC_n6_b6OHKI9Ogc/edit#heading=h.lpiepsfbap1g'}
     ]
   }
 ];
@@ -141,6 +148,7 @@ const ProjectLinkAnchor = styled.a`
     cursor: pointer;
     background-color: ${ props => props.theme.accent };
     color: ${ props => props.theme.primary };
+    margin-top: 10px;
   }
   padding-right: 10px;
 `;
@@ -172,7 +180,7 @@ const Project = ({title, skills, goals, images, descriptionLines, links}: Projec
         </GoalList>
         { links.length > 0 ? <>
           <ProjectHeader>Links</ProjectHeader>
-          <Content>{ links.map(link => <ProjectLink {...link} />) }</Content>
+          { links.map(link => <ProjectLink {...link} />) }
         </> : <></>}
       </Box>
     </ProjectRow>

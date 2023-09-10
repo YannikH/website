@@ -16,9 +16,9 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-const theme = {
-  primary: '#eaeaea',
-  primaryDark: '#d0d0d0',
+export const theme = {
+  primary: '#fff',
+  primaryDark: '#f5f5f5',
   secondary: '#292929',
   accent: '#395cb2',
   accentSecondary: '#b2a239',
@@ -27,6 +27,24 @@ const theme = {
 
 const Tab = styled.div`
   transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s;
+`;
+
+const BackgroundLeft = styled.div`
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background: url('steps-left.svg');
+  background-repeat: repeat-y;
+  background-size: contain;
+`;
+const BackgroundRight = styled(BackgroundLeft)`
+  left: 50%;
+  background: url('steps-right.svg');
+  background-position: right;
+  background-size: contain;
 `;
 
 const Landing = () => {
@@ -53,6 +71,8 @@ const Landing = () => {
   return (
     <ThemeProvider theme={theme}>
       <Background>
+        <BackgroundLeft />
+        {/* <BackgroundRight /> */}
         <Navbar />
         <Body>
           <Tab style={activeStyle('#About')}><About /></Tab>

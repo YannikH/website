@@ -1,5 +1,5 @@
 import React from 'react'
-import { GitHub, LinkedIn, Instagram } from '@mui/icons-material';
+import { GitHub, LinkedIn, Instagram, AccountBox } from '@mui/icons-material';
 import styled from 'styled-components';
 import { IconLink, Row, Subtitle } from './Common';
 
@@ -18,6 +18,7 @@ const Footer = () => (
     <IconLink href="https://www.linkedin.com/in/yannik-hegge-85516b92/" target='_blank'><LinkedIn/></IconLink>
     <IconLink href="https://github.com/YannikH" target='_blank'><GitHub /></IconLink>
     <IconLink href="https://www.instagram.com/yahegge/" target='_blank'><Instagram/></IconLink>
+    <IconLink href="https://www.yahegge.nl/card" target='_blank'><AccountBox/></IconLink>
   </FooterContainer>
 );
 

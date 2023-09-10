@@ -145,7 +145,7 @@ const ProjectRow = styled(Row)`
     flex-direction: column-reverse;
   }
   :nth-child(odd) {
-    background-color: ${ props => props.theme.primaryDark };
+    background-color: #f2f2f29a
   }
 `;
 

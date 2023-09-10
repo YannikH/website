@@ -12,6 +12,7 @@ import React from 'react'
 import Helmet from 'react-helmet';
 import Notes from './components/Blog/Notes';
 import Landing from './components/Portfolio/Landing';
+import Card from './components/Portfolio/Card';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing/>}></Route>
+          <Route path="/card" element={<Card/>}></Route>
           <Route path="/blog/*" element={<Blog/>}></Route>
           <Route path="/mobile/*" element={<MobileApp/>}></Route>
           <Route path="/airdefense/*" element={<AirDefense/>}></Route>

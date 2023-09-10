@@ -23,7 +23,7 @@ const Card = () => {
         <Column style={{height: '100vh', justifyContent: 'center', alignItems: 'center'}}>
           <Row style={{alignItems: 'center ', justifyContent: 'center', padding: '30px'}}>
             <ImageContainer>
-              <ImageCarousel images={['profile-rounded.png', 'qr-code.png']}/>
+              <ImageCarousel images={['https://www.yahegge.nl/profile-rounded.png', 'https://www.yahegge.nl/qr-code.png']}/>
             </ImageContainer>
             <Column style={{ paddingLeft: '20px', height: '100%'}}>
               <Title style={{margin: '10px 0'}}>Yannik Hegge</Title>

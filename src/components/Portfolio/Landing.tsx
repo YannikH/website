@@ -18,8 +18,9 @@ export const Container = styled.div`
 
 const theme = {
   primary: '#eaeaea',
+  primaryDark: '#d0d0d0',
   secondary: '#292929',
-  accent: '#393fb2',
+  accent: '#395cb2',
   accentSecondary: '#b2a239',
   accentTertiary: '#b23939',
 };

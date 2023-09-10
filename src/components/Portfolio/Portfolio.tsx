@@ -44,13 +44,15 @@ const PortfolioDescription = styled.div`
   margin: 30px;
 `;
 
+type ProjectLinkData = {link: string, label: string, description: string};
+
 type Project = {
   title: string,
   descriptionLines: string[],
   skills: string[],
   goals: string[],
   images: string[],
-  links: {name: string, description: string}[]
+  links: ProjectLinkData[]
 };
 const projects : Project[] = [
   {
@@ -64,7 +66,10 @@ const projects : Project[] = [
       'Make the HUD have an API to show hints from external plugins and features, instead of hard-coding them in the UI'
     ],
     images: ['assets/hud/hud-game.png', 'assets/hud/whiteboard.png', 'assets/hud/hud-figma.png', 'assets/hud/hud.png'],
-    links: []
+    links: [
+      {link: 'https://hud.yahegge.nl/', label: 'Demo', description: 'An example web page that shows the HUD and its data'},
+      {link: 'https://www.figma.com/file/EsKI7mklusYsZA588Pc7wL/HUD?type=design&mode=design&t=MxohztF3tlYlVEOx-1', label: 'Figma design', description: ''}
+    ]
   },
   {
     title: 'Project Hatchet',
@@ -76,7 +81,11 @@ const projects : Project[] = [
       'Create a multi-crew helicopter, with all systems synchronized between pilot and co-pilot in a multiplayer environment'
     ],
     images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png'],
-    links: []
+    links: [
+      {label: 'Test footage', description: '', link: 'https://www.youtube.com/watch?v=pmcj5hLapbo&ab_channel=Yax'},
+      {label: 'User manual', description: '', link: 'https://uh-60m.gitbook.io/workspace/'},
+      {label: 'Github', description: '', link: 'https://github.com/Project-Hatchet/H-60'}
+    ]
   },
   {
     title: 'Arma 3 SOG: Prairie Fire',
@@ -99,33 +108,52 @@ const projects : Project[] = [
       'Build simulator-like weapons, sensors and avionics'
     ],
     images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg'],
-    links: []
+    links: [
+      {label: 'Release video', description: '', link: 'https://www.youtube.com/watch?v=oZkHxipsj5w&ab_channel=Yax'}
+    ]
   }
 ];
 
 const CarouselContainer = styled.div`
   min-width: 50%;
   max-width: 50%;
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1200px) {
     max-width: 100%;
     height: auto;
   }
 `;
 
-const PortfolioContainer = styled.div`
-  padding: 0 30px;
-`;
+const PortfolioContainer = styled.div``;
 
 const ProjectRow = styled(Row)`
-  padding: 20px 0;
+  padding: 20px 30px;
   align-items: center;
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1200px) {
     flex-direction: column-reverse;
-    border-bottom: solid 1px ${ props => props.theme.secondary };
+  }
+  :nth-child(odd) {
+    background-color: ${ props => props.theme.primaryDark };
   }
 `;
 
-const Project = ({title, skills, goals, images, descriptionLines}: Project) => {
+const ProjectLinkAnchor = styled.a`
+  div {
+    cursor: pointer;
+    background-color: ${ props => props.theme.accent };
+    color: ${ props => props.theme.primary };
+  }
+  padding-right: 10px;
+`;
+
+const ProjectLink = ({link, label, description}: ProjectLinkData) => {
+  return (
+    <ProjectLinkAnchor href={link} target="_blank">
+      <Chip label={label}/>
+    </ProjectLinkAnchor>
+  );
+};
+
+const Project = ({title, skills, goals, images, descriptionLines, links}: Project) => {
   return (
     <ProjectRow>
       <CarouselContainer>
@@ -142,6 +170,10 @@ const Project = ({title, skills, goals, images, descriptionLines}: Project) => {
         <GoalList>
           { goals.map(goal => <li>{ goal }</li>) }
         </GoalList>
+        { links.length > 0 ? <>
+          <ProjectHeader>Links</ProjectHeader>
+          <Content>{ links.map(link => <ProjectLink {...link} />) }</Content>
+        </> : <></>}
       </Box>
     </ProjectRow>
   );

@@ -24,20 +24,39 @@ const theme = {
   accentTertiary: '#b23939',
 };
 
+const Tab = styled.div`
+  transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s;
+`;
+
 const Landing = () => {
   const tabName = useLocation();
   const activeTab = (): string => {
     if (!['#About', '#Portfolio', '#Contact'].includes(tabName.hash)) return '#About';
     return tabName.hash;
   };
+  const activeStyle = (tabName: string) => {
+    const hiddenStyle = {
+      maxHeight: 0,
+      overflow: 'hidden',
+      opacity: 0,
+      visibleStyle: 'hidden'
+    };
+
+    const visibleStyle = {
+      maxHeight: 'none',
+      opacity: 1,
+      visibleStyle: 'visible'
+    };
+    return (activeTab() === tabName) ? visibleStyle: hiddenStyle;
+  }
   return (
     <ThemeProvider theme={theme}>
       <Background>
         <Navbar />
         <Body>
-          { activeTab() === '#About' ? <About /> : <></> }
-          { activeTab() === '#Portfolio' ? <Portfolio /> : <></> }
-          { activeTab() === '#Contact' ? <Contact /> : <></> }
+          <Tab style={activeStyle('#About')}><About /></Tab>
+          <Tab style={activeStyle('#Portfolio')}><Portfolio /></Tab>
+          <Tab style={activeStyle('#Contact')}><Contact /></Tab>
         </Body>
         <Footer />
       </Background>

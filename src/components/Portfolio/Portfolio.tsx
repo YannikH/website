@@ -46,41 +46,60 @@ const PortfolioDescription = styled.div`
 
 type Project = {
   title: string,
-  description?: string,
+  descriptionLines: string[],
   skills: string[],
   goals: string[],
-  images: string[]
+  images: string[],
+  links: {name: string, description: string}[]
 };
 const projects : Project[] = [
   {
+    title: 'Reusable HTML-5 Game HUD',
+    descriptionLines: ['This was a personal hobby project that directly came out of a desire to update the old Heads Up Display found in the product I work on.', 'The aim was to freshen up the UI and make it look more modern, and build a robust modular keybind hint system that would help features become more self-teaching.', ' An internal development effort to implement the hint system prototyped as part of this HUD is currently ongoing.'],
+    skills: ['Competitive research', 'UI/UX Design', 'Figma mockups', 'Prototyping', 'Game Scripting', 'Web Development'],
+    goals: [
+      'Follow a clear UX process going from competitive research, to Figma mockups, to implementation',
+      'Create a HUD that has a clear hint system showing new players what keybinds are available',
+      'Make the HUD smoothly switch between keyboard+mouse and controller usage',
+      'Make the HUD have an API to show hints from external plugins and features, instead of hard-coding them in the UI'
+    ],
+    images: ['assets/hud/hud-game.png', 'assets/hud/whiteboard.png', 'assets/hud/hud-figma.png', 'assets/hud/hud.png'],
+    links: []
+  },
+  {
     title: 'Project Hatchet',
+    descriptionLines: ['Project hatchet is an Arma 3 modding project that aimed to create a more simulator-like experience for Arma 3 helicopters, while still remaining accessible to casual players.'],
     skills: ['Game Design', 'Game Scripting', 'Software Architecture', 'Team Leading'],
     goals: [
       'Create a development framework to enable the easy building of detailed interactive vehicle cockpits',
       'Create a realistic representation of a UH-60M Blackhawk helicopter in Arma III',
       'Create a multi-crew helicopter, with all systems synchronized between pilot and co-pilot in a multiplayer environment'
     ],
-    images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png']
+    images: ['assets/hatchet/1.jpg', 'assets/hatchet/3.png', 'assets/hatchet/4.jpg', 'assets/hatchet/2.png'],
+    links: []
   },
   {
     title: 'Arma 3 SOG: Prairie Fire',
-    description: 'I was part of the development team of the SOG: Prairie Fire third party DLC for Arma 3. On the team my focus was to configure weapons, sensors, displays and instruments for vehicles (mainly aircraft) to give them an authentic, realistic feeling while at the same time being accessible to casual players',
+    descriptionLines: ['I was part of the development team of the SOG: Prairie Fire third party DLC for Arma 3.', ' On the team my focus was to configure weapons, sensors, displays and instruments for vehicles (mainly aircraft) to give them an authentic, realistic feeling while at the same time being accessible to casual players.'],
     skills: ['Game Design', 'Game Scripting', 'Asset configuration'],
     goals: [
       'Use existing arma functionality to implement realistic cockpit instrumentation',
       'Implement weapons systems that authentically represent the technology of the 1960s, that are at the same time simple to use for casual players',
       'Ensure all new custom features are in line with both Arma 3 and SOG:PF art and design standards'
     ],
-    images: ['assets/sogpf/1.jpg', 'assets/sogpf/2.jpg', 'assets/sogpf/3.jpg']
+    images: ['assets/sogpf/1.jpg', 'assets/sogpf/2.jpg', 'assets/sogpf/3.jpg'],
+    links: []
   },
   {
     title: 'F/A-18E/F Super Hornet',
+    descriptionLines: ['The F/A-18E/F Super Hornet was an established Arma 3 mod when I took it over in 2019 together with a 3d artist.', 'Together we rebuilt the internal and exernals, overhauled the flight model, added an interactive cockpit, and added simulator-like features which were not seen before in Arma 3 up to this point.'],
     skills: ['Game Design', 'Game Scripting', 'Asset configuration', 'Prototyping'],
     goals: [
       'Create the first fixed wing aircraft for Arma III with an interactive cockpit',
       'Build simulator-like weapons, sensors and avionics'
     ],
-    images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg']
+    images: ['assets/hornet/1.png', 'assets/hornet/2.jpg', 'assets/hornet/3.jpg'],
+    links: []
   }
 ];
 
@@ -106,7 +125,7 @@ const ProjectRow = styled(Row)`
   }
 `;
 
-const Project = ({title, skills, goals, images, description}: Project) => {
+const Project = ({title, skills, goals, images, descriptionLines}: Project) => {
   return (
     <ProjectRow>
       <CarouselContainer>
@@ -114,7 +133,7 @@ const Project = ({title, skills, goals, images, description}: Project) => {
       </CarouselContainer>
       <Box p={2}>
         <ProjectTitle>{ title }</ProjectTitle>
-        <Content>{ description }</Content>
+        { descriptionLines.map(line => <Content> {line} </Content>) }
         <ProjectHeader>Skills</ProjectHeader>
         <SkillContainer>
           { skills.map(skill => <Chip label={ skill } variant="outlined"></Chip>) }
